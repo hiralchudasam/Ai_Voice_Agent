@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Voice Agent</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎤 AI Voice Agent</h1>
+    <h4 style="text-align: center; color: gray;">Ask questions using your voice and get AI responses in speech.</h4>
+    
+    <!-- Persona Selection -->
+    <div class="persona-selection">
+      <label for="persona-select">Choose AI Persona:</label>
+      <select id="persona-select" class="persona-dropdown">
+        <option value="default">Default Assistant</option>
+        <option value="professional">Professional Assistant</option>
+        <option value="friendly">Friendly Companion</option>
+        <option value="creative">Creative Writer</option>
+        <option value="technical">Technical Expert</option>
+        <option value="humorous">Humorous Buddy</option>
+      </select>
+      <div id="persona-status" class="persona-status">Current: Default Assistant</div>
+    </div>
+
+    <div class="recorder-box">
+      <button id="record-btn" class="pulse"> 🎙️ Start Recording</button>
+      <div id="status" class="status">
+        Ready to record <span id="loader" style="display:none;"></span>
+      </div>
+    </div>
+    <div class="chat-controls" style="text-align: right;">
+      <button id="clear-chat-btn" class="clear-btn">Clear Chat</button>
+    </div>
+    <div class="chat-history" id="chat-history">
+      <!-- Chat entries will be injected here -->
+    </div>
+  </div>
+
+  <script src="/static/recorder.js"></script>
+</body>
+</html>
