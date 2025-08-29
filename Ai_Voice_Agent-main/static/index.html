@@ -8,7 +8,10 @@
 </head>
 <body>
   <div class="container">
-    <h1>🎤 AI Voice Agent</h1>
+    <div class="header-controls">
+      <h1>🎤 AI Voice Agent</h1>
+      <button id="config-btn" class="config-btn">⚙️ Configure</button>
+    </div>
     <h4 style="text-align: center; color: gray;">Ask questions using your voice and get AI responses in speech.</h4>
     
     <!-- Persona Selection -->
@@ -36,6 +39,38 @@
     </div>
     <div class="chat-history" id="chat-history">
       <!-- Chat entries will be injected here -->
+    </div>
+  </div>
+
+  <!-- Configuration Modal -->
+  <div id="config-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>API Key Configuration</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="api-key-group">
+          <label for="assembly-key">AssemblyAI API Key (Speech-to-Text):</label>
+          <input type="password" id="assembly-key" placeholder="Enter AssemblyAI API key" class="api-key-input">
+        </div>
+        <div class="api-key-group">
+          <label for="murf-key">Murf AI API Key (Text-to-Speech):</label>
+          <input type="password" id="murf-key" placeholder="Enter Murf AI API key" class="api-key-input">
+        </div>
+        <div class="api-key-group">
+          <label for="gemini-key">Gemini API Key (LLM):</label>
+          <input type="password" id="gemini-key" placeholder="Enter Gemini API key" class="api-key-input">
+        </div>
+        <div class="api-key-group">
+          <label for="weather-key">WeatherAPI Key:</label>
+          <input type="password" id="weather-key" placeholder="Enter WeatherAPI key" class="api-key-input">
+        </div>
+        <div class="modal-buttons">
+          <button id="save-config" class="save-btn">Save</button>
+          <button id="cancel-config" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 

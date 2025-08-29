@@ -129,3 +129,6 @@ uvicorn main:app --reload
   - Persisting chat history in a lightweight database (SQLite, Redis)  
   - Customizing UI themes or swapping in alternative voices  
 Feel free to iterate, share your tweaks on LinkedIn, and keep building on this modular foundation!
+
+Try and use the API keys provided by the user rather than the ones from the .env file - Add a config section in the UI to allow the user to enter their API keys for the services you are using. This can be in a sidebar, or in a dialog box.
+

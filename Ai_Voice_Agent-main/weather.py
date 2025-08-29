@@ -29,17 +29,15 @@ async def get_weather(location: str, api_key: str) -> Optional[str]:
             
             # Format the weather information
             temp = weather_data["current"]["temp_c"]
-            feels_like = weather_data["current"]["feelslike_c"]
-            humidity = weather_data["current"]["humidity"]
             description = weather_data["current"]["condition"]["text"]
             city = weather_data["location"]["name"]
             country = weather_data["location"]["country"]
             
+            # Return only the requested information based on the query
             return (
                 f"Current weather in {city}, {country}:\n"
-                f"Temperature: {temp}°C (feels like {feels_like}°C)\n"
-                f"Conditions: {description.capitalize()}\n"
-                f"Humidity: {humidity}%"
+                f"Temperature: {temp}°C\n"
+                f"Conditions: {description.capitalize()}"
             )
             
     except httpx.HTTPStatusError as e:

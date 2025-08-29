@@ -24,7 +24,25 @@ def is_weather_query(text: str) -> bool:
         r"give me.*forecast.*",
         r"how.*humid.*",
         r"current weather.*",
-        r"current temperature.*"
+        r"current temperature.*",
+        r"wind.*speed.*",
+        r"wind.*in.*",
+        r"visibility.*in.*",
+        r"how.*windy.*",
+        r"is it.*raining.*",
+        r"is it.*snowing.*",
+        r"rain.*in.*",
+        r"snow.*in.*",
+        r"weather.*today.*",
+        r"weather.*tomorrow.*",
+        r"weather.*this.*week.*",
+        r"weather.*report.*",
+        r"meteorological.*",
+        r"atmospheric.*conditions.*",
+        r"barometric.*pressure.*",
+        r"weather.*conditions.*",
+        r"temperature.*today.*",
+        r"temperature.*tomorrow.*"
     ]
     
     text_lower = text.lower()
@@ -44,7 +62,16 @@ def extract_location(text: str) -> str:
         r"what.*weather in ([\w\s,]+)",
         r"climate in ([\w\s,]+)",
         r"humidity in ([\w\s,]+)",
-        r"temperature for ([\w\s,]+)"
+        r"temperature for ([\w\s,]+)",
+        r"wind.*in ([\w\s,]+)",
+        r"visibility.*in ([\w\s,]+)",
+        r"rain.*in ([\w\s,]+)",
+        r"snow.*in ([\w\s,]+)",
+        r"weather.*for ([\w\s,]+)",
+        r"temperature.*for ([\w\s,]+)",
+        r"forecast.*at ([\w\s,]+)",
+        r"weather.*at ([\w\s,]+)",
+        r"temperature.*at ([\w\s,]+)"
     ]
     
     text_lower = text.lower()

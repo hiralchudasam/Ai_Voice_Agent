@@ -5,6 +5,15 @@ const status = document.getElementById("status");
 const loader = document.getElementById("loader");
 const chatHistory = document.getElementById("chat-history");
 const clearChatBtn = document.getElementById("clear-chat-btn");
+const configBtn = document.getElementById("config-btn");
+const configModal = document.getElementById("config-modal");
+const closeModal = document.querySelector(".close");
+const saveConfigBtn = document.getElementById("save-config");
+const cancelConfigBtn = document.getElementById("cancel-config");
+const assemblyKeyInput = document.getElementById("assembly-key");
+const murfKeyInput = document.getElementById("murf-key");
+const geminiKeyInput = document.getElementById("gemini-key");
+const weatherKeyInput = document.getElementById("weather-key");
 
 let mediaRecorder;
 let audioChunks = [];
@@ -51,6 +60,8 @@ recordBtn.addEventListener("click", async () => {
             formData.append("audio", audioBlob, "recording.webm");
 
             try {
+                const apiKeys = loadApiKeys();
+                
                 // First set the persona for this session
                 await fetch("/persona", {
                     method: "POST",
@@ -60,9 +71,15 @@ recordBtn.addEventListener("click", async () => {
                     body: JSON.stringify({ persona_name: currentPersona })
                 });
 
-                // Then send the audio query
+                // Then send the audio query with API keys
                 const response = await fetch("/llm/query", {
                     method: "POST",
+                    headers: {
+                        "X-AssemblyAI-Key": apiKeys.assembly,
+                        "X-MurfAI-Key": apiKeys.murf,
+                        "X-Gemini-Key": apiKeys.gemini,
+                        "X-WeatherAPI-Key": apiKeys.weather
+                    },
                     body: formData,
                 });
 
@@ -143,4 +160,72 @@ clearChatBtn.addEventListener("click", () => {
             status.textContent = "Ready to record";
         }, 2000);
     }
+});
+
+// API Key Configuration Functions
+function loadApiKeys() {
+    return {
+        assembly: localStorage.getItem('assembly_api_key') || '',
+        murf: localStorage.getItem('murf_api_key') || '',
+        gemini: localStorage.getItem('gemini_api_key') || '',
+        weather: localStorage.getItem('weather_api_key') || ''
+    };
+}
+
+function saveApiKeys(keys) {
+    localStorage.setItem('assembly_api_key', keys.assembly);
+    localStorage.setItem('murf_api_key', keys.murf);
+    localStorage.setItem('gemini_api_key', keys.gemini);
+    localStorage.setItem('weather_api_key', keys.weather);
+}
+
+function populateApiKeyFields() {
+    const keys = loadApiKeys();
+    assemblyKeyInput.value = keys.assembly;
+    murfKeyInput.value = keys.murf;
+    geminiKeyInput.value = keys.gemini;
+    weatherKeyInput.value = keys.weather;
+}
+
+// Modal functionality
+configBtn.addEventListener("click", () => {
+    populateApiKeyFields();
+    configModal.style.display = "block";
+});
+
+closeModal.addEventListener("click", () => {
+    configModal.style.display = "none";
+});
+
+cancelConfigBtn.addEventListener("click", () => {
+    configModal.style.display = "none";
+});
+
+saveConfigBtn.addEventListener("click", () => {
+    const keys = {
+        assembly: assemblyKeyInput.value.trim(),
+        murf: murfKeyInput.value.trim(),
+        gemini: geminiKeyInput.value.trim(),
+        weather: weatherKeyInput.value.trim()
+    };
+    
+    saveApiKeys(keys);
+    configModal.style.display = "none";
+    status.textContent = "API keys saved!";
+    
+    setTimeout(() => {
+        status.textContent = "Ready to record";
+    }, 2000);
+});
+
+// Close modal when clicking outside
+window.addEventListener("click", (event) => {
+    if (event.target === configModal) {
+        configModal.style.display = "none";
+    }
+});
+
+// Load API keys on page load
+document.addEventListener("DOMContentLoaded", () => {
+    populateApiKeyFields();
 });

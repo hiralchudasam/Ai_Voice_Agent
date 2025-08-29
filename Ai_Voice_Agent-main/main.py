@@ -66,11 +66,17 @@ async def llm_query(request: Request, audio: UploadFile = File(...)):
     session_id = request.client.host
     audio_path = UPLOADS_DIR / "input.wav"
 
+    # Get API keys from headers (user-provided) or fallback to environment variables
+    assembly_api_key = request.headers.get("X-AssemblyAI-Key") or ASSEMBLY_API_KEY
+    murf_api_key = request.headers.get("X-MurfAI-Key") or MURF_API_KEY
+    gemini_api_key = request.headers.get("X-Gemini-Key") or GEMINI_API_KEY
+    weather_api_key = request.headers.get("X-WeatherAPI-Key") or OPENWEATHER_API_KEY
+
     with open(audio_path, "wb") as f:
         f.write(await audio.read())
 
     try:
-        transcript = await transcribe_audio(audio_path, ASSEMBLY_API_KEY)
+        transcript = await transcribe_audio(audio_path, assembly_api_key)
         
         # Get persona for this session (default to "default" if not set)
         persona_name = persona_selections.get(session_id, "default")
@@ -78,12 +84,12 @@ async def llm_query(request: Request, audio: UploadFile = File(...)):
         llm_text = await generate_llm_response(
             transcript, 
             session_id, 
-            GEMINI_API_KEY, 
+            gemini_api_key, 
             conversation_history,
             persona_name,
-            OPENWEATHER_API_KEY
+            weather_api_key
         )
-        audio_url = await synthesize_speech(llm_text, MURF_API_KEY)
+        audio_url = await synthesize_speech(llm_text, murf_api_key)
     except Exception as e:
         logger.exception("Processing failed")
         raise HTTPException(status_code=500, detail=str(e))
