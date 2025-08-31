@@ -1,6 +1,9 @@
 {
-  "buildCommand": null,
-  "outputDirectory": "./Ai_Voice_Agent-main/static",
-  "installCommand": null,
-  "framework": null
+  "functions": {},
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/static/$1"
+    }
+  ]
 }
