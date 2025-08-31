@@ -1,5 +1,6 @@
 {
-    "buildCommand": null,
-    "outputDirectory": "static",
-    "installCommand": null
+  "buildCommand": null,
+  "outputDirectory": "Ai_Voice_Agent-main/static",
+  "installCommand": null,
+  "framework": null
 }
