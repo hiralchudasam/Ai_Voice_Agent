@@ -1,0 +1,17 @@
+version: 2
+
+services:
+  - type: web
+    name: ai-voice-agent
+    runtime: python3
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ASSEMBLY_API_KEY
+        value: ""
+      - key: MURF_API_KEY
+        value: ""
+      - key: GEMINI_API_KEY
+        value: ""
+      - key: OPENWEATHER_API_KEY
+        value: ""
