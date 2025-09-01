@@ -1,9 +1,28 @@
 # 🎙️ AI Voice Agent
 
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
+[![AssemblyAI](https://img.shields.io/badge/AssemblyAI-STT-orange.svg)](https://www.assemblyai.com/)
+[![Google Gemini](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-red.svg)](https://ai.google.dev/)
+[![Murf TTS](https://img.shields.io/badge/Murf-TTS-purple.svg)](https://murf.ai/)
+
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Technologies Used](#technologies-used)
+- [Architecture](#architecture)
+- [Key Features](#key-features)
+- [Project Structure](#project-structure)
+- [Running the AI Voice Agent](#running-the-ai-voice-agent--api-server)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Project Overview
-The AI Voice Agent is a web-based conversational assistant that lets you speak naturally, processes your voice in real time, and replies with synthesized speech—all in a single-page, responsive interface. Built as part of the **#30DaysOfAIVoiceAgents** challenge, the project demonstrates seamless integration of speech-to-text, large-language modeling, and text-to-speech services to create an end-to-end voice experience.  
+The AI Voice Agent is a web-based conversational assistant that lets you speak naturally, processes your voice in real time, and replies with synthesized speech—all in a single-page, responsive interface. Built as part of the **#30DaysOfAIVoiceAgents** challenge, the project demonstrates seamless integration of speech-to-text, large-language modeling, and text-to-speech services to create an end-to-end voice experience.
 
 Every interaction feels fluid: you press a single button to record, the backend pipelines your audio through transcription and LLM services, and you immediately hear a spoken reply without needing to refresh or navigate away.
+
+[🚀 Live Demo](https://your-github-repo-link) | [📖 Documentation](https://github.com/your-username/Ai_Voice_Agent/wiki)
 
 ---
 ## Technologies Used
@@ -31,8 +50,8 @@ FastAPI Server
 Murf TTS returns MP3 audio
   └─ Browser auto-plays response and updates chat history
 ```
-- Audio files are temporarily stored under `uploads/` for asynchronous processing.  
-- All network calls are non-blocking, leveraging `async`/`await` to keep the UI snappy.  
+- Audio files are temporarily stored under `uploads/` for asynchronous processing.
+- All network calls are non-blocking, leveraging `async`/`await` to keep the UI snappy.
 - Chat state (user prompts + AI replies) is stored in memory per session for multi-turn context.
 ---
 ## Key Features
@@ -51,27 +70,59 @@ Murf TTS returns MP3 audio
 - **Animated, Gradient UI**  
   Clean, minimal layout with subtle animations, gradient backgrounds, and responsive design for all devices.
 ---
+## Project Structure
+```
+Ai_Voice_Agent-main/
+├── .gitignore
+├── llm.py
+├── main.py
+├── personas.py
+├── README.md
+├── render.yaml
+├── requirements.txt
+├── schemas.py
+├── stt.py
+├── test_api_key.py
+├── test_enhanced_weather_detection.py
+├── test_persona.py
+├── test_weather_detection.py
+├── test_weather_real.py
+├── test_weather.py
+├── TESTING_QUESTIONS.md
+├── TODO_API_KEYS.md
+├── TODO.md
+├── tts.py
+├── vercel.json
+├── weather.py
+├── services/
+├── static/
+│   ├── fallback.mp3
+│   ├── index.html
+│   ├── recorder.js
+│   └── style.css
+└── uploads/
+```
+- **services/**: Contains modules for STT, LLM, and TTS services.
+- **static/**: Frontend files including HTML, CSS, JS, and fallback audio.
+- **uploads/**: Directory for temporary audio file storage (auto-created).
+- **Test files**: Various test scripts for API keys, weather detection, personas, etc.
+- **Configuration files**: .env, requirements.txt, vercel.json for deployment.
+---
+## API Endpoints
+- `GET /`: Serves the main HTML page.
+- `POST /transcribe`: Uploads audio and returns transcription.
+- `POST /chat`: Processes chat with LLM and returns response.
+- `POST /tts`: Converts text to speech and returns audio URL.
+
+For detailed API docs, see [API Documentation](https://github.com/your-username/Ai_Voice_Agent/wiki/API).
+
+---
 # ⚙️ Running the AI Voice Agent & API Server
 Follow these steps to set up, configure, and run the complete voice-agent stack on your local machine.
 ---
 ## 1. Clone or Prepare Project Files
-1. Place all project files in a single folder on your machine.  
-2. Verify the structure looks like this:
-   ```
-    project-root/
-    ├── .env
-    ├── main.py
-    ├── schemas.py
-    ├── services/
-    │   ├── stt.py
-    │   ├── llm.py
-    │   └── tts.py
-    ├── static/
-    │   ├── recorder.js
-    │   ├── index.html
-    │   └── favicon.ico
-    ├── uploads/  ← auto-created at runtime 
-   ```
+1. Place all project files in a single folder on your machine.
+2. Verify the structure matches the [Project Structure](#project-structure) above.
 ---
 ## 2. Create & Activate a Python Virtual Environment
 ```bash
