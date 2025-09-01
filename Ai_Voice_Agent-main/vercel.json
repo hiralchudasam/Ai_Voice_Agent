@@ -1,9 +1,23 @@
 {
-  "functions": {},
+  "functions": {
+    "Ai_Voice_Agent-main/api/*.py": {
+      "runtime": "python3.9",
+      "maxDuration": 30
+    }
+  },
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/static/$1"
+      "src": "/",
+      "dest": "/Ai_Voice_Agent-main/static/index.html"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/Ai_Voice_Agent-main/static/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/Ai_Voice_Agent-main/api/$1"
     }
-  ]
+  ],
+  "outputDirectory": "Ai_Voice_Agent-main/static"
 }
