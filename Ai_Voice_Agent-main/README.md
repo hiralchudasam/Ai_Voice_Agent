@@ -54,6 +54,16 @@ Murf TTS returns MP3 audio
 - All network calls are non-blocking, leveraging `async`/`await` to keep the UI snappy.
 - Chat state (user prompts + AI replies) is stored in memory per session for multi-turn context.
 ---
+## How It Works
+1. **User Interaction**: Click the record button to start capturing audio from the microphone.
+2. **Audio Processing**: The audio is sent to AssemblyAI for transcription, which returns text in real-time.
+3. **AI Response Generation**: The transcribed text, along with chat history, is sent to Google Gemini 2.5 Flash for generating a contextual response.
+4. **Speech Synthesis**: The AI's text response is converted to audio using Murf TTS.
+5. **Playback and Display**: The audio plays automatically, and the conversation is appended to the chat history on the page.
+6. **Error Handling**: If any service fails, a fallback audio is played, and an error message is shown.
+
+This seamless pipeline ensures a natural voice interaction without page reloads.
+---
 ## Key Features
 - **Single-Button Recording**  
   A unified “Start / Stop / Processing” control with animated feedback and status indicators.
@@ -63,12 +73,18 @@ Murf TTS returns MP3 audio
   Maintains context across exchanges with Google’s Gemini 2.5 Flash model to deliver coherent, follow-up responses.
 - **Text-to-Speech Playback**  
   Converts AI replies into natural-sounding audio via Murf TTS and auto-plays them in the browser.
+- **Weather Detection and Integration**  
+  Advanced weather query detection and real-time weather data fetching for location-based responses.
+- **Persona Support**  
+  Customizable AI personas for different interaction styles and personalities.
 - **Graceful Fallbacks**  
   Detects API failures or missing keys, displays informative messages, and plays a built-in fallback audio clip.
 - **Persistent Chat History**  
   Dynamically appends each question and reply to the page, allowing you to review the conversation until page refresh.
 - **Animated, Gradient UI**  
   Clean, minimal layout with subtle animations, gradient backgrounds, and responsive design for all devices.
+- **Extensive Testing Suite**  
+  Comprehensive test files for API keys, weather detection, personas, and overall functionality.
 ---
 ## Project Structure
 ```
@@ -181,5 +197,15 @@ uvicorn main:app --reload
   - Customizing UI themes or swapping in alternative voices  
 Feel free to iterate, share your tweaks on LinkedIn, and keep building on this modular foundation!
 
-Try and use the API keys provided by the user rather than the ones from the .env file - Add a config section in the UI to allow the user to enter their API keys for the services you are using. This can be in a sidebar, or in a dialog box.
+## Contributing
+We welcome contributions! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and test thoroughly.
+4. Submit a pull request with a clear description of your changes.
+
+For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
