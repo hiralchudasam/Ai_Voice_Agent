@@ -1,23 +1,17 @@
 {
-  "functions": {
-    "Ai_Voice_Agent-main/api/*.py": {
-      "runtime": "python3.9",
-      "maxDuration": 30
-    }
-  },
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/Ai_Voice_Agent-main/static/index.html"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "/Ai_Voice_Agent-main/static/$1"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/Ai_Voice_Agent-main/api/$1"
-    }
-  ],
-  "outputDirectory": "Ai_Voice_Agent-main/static"
+    "buildCommand": null,
+    "outputDirectory": "Ai_Voice_Agent-main/static",
+    "installCommand": null,
+    "framework": null,
+    "functions": {},
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/static/index.html"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/static/$1"
+        }
+    ]
 }
