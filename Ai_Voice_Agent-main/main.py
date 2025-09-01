@@ -28,23 +28,16 @@ GEMINI_API_KEY   = os.getenv("GEMINI_API_KEY")
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "your_openweather_key")
 
 if not ASSEMBLY_API_KEY or not MURF_API_KEY or not GEMINI_API_KEY:
-    raise RuntimeError("Missing API keys in environment variables")
+    raise RuntimeError("Missing API keys in .env")
 
-# ---------- Static & Uploads ----------
-# For Vercel: filesystem is read-only, use /tmp for uploads
-UPLOADS_DIR = Path("/tmp/uploads")
-UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
-
-# Mount static if available (safe for Vercel)
-if Path("static").exists():
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+# Static files & uploads folder
+UPLOADS_DIR = Path("uploads")
+UPLOADS_DIR.mkdir(exist_ok=True)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 async def serve_frontend():
-    index_path = Path("static/index.html")
-    if index_path.exists():
-        return FileResponse(index_path)
-    return {"message": "Backend is running. Upload audio to /llm/query."}
+    return FileResponse("static/index.html")
 
 # ---------- Multi-Turn Memory ----------
 conversation_history = {}
@@ -107,7 +100,6 @@ async def llm_query(request: Request, audio: UploadFile = File(...)):
         audio_url=audio_url
     )
 
-# Only run uvicorn locally, not on Vercel
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
